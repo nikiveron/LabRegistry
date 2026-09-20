@@ -1,18 +1,17 @@
-﻿using LabRegistry.Domain.Enums;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace LabRegistry.Domain.Entities;
 
 public class InspectionObject
 {
     public Guid Id { get; set; } = Guid.NewGuid();
-    [MaxLength(200)]
+    [MaxLength(AppConstants.InspectionObjectNameLength)]
     public required string Name { get; set; }
-    [MaxLength(50)]
+    [MaxLength(AppConstants.InspectionObjectVersionLength)]
     public required string Version { get; set; }
-    public ProductType ProductType { get; set; }
+    public required string ProductType { get; set; }
     public DateTimeOffset ReceiptDate { get; set; }
-    public ProductResult ProductResult { get; set; } = ProductResult.InProgress;
-    [MaxLength(1000)]
+    public required string ProductResult { get; set; }
+    [MaxLength(AppConstants.InspectionObjectCommentLength)]
     public string? Comment { get; set; } = null;
 }

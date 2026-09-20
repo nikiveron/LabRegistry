@@ -1,15 +1,19 @@
-﻿using MediatR;
+﻿using LabRegistry.Application.InspectionObjects.GetInspectionObjectsList;
+using LabRegistry.Domain.Enums;
+using LabRegistry.Infrastructure.Tools;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharpGrip.FluentValidation.AutoValidation.Mvc.Attributes;
 
 namespace LabRegistry.Server.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/inspection-objects")]
 [ApiController]
 public class InspectionObjectsController(IMediator mediator) : ControllerBase
 {
-    [HttpPost("upload")]
-    public async Task<IActionResult> GetInspectionObjectsList(CancellationToken cancellationToken)
+    [HttpGet]
+    public async Task<IActionResult> GetInspectionObjectsList([AutoValidateAlways] [FromQuery] GetInspectionObjectsListRequest request, CancellationToken cancellationToken)
     {
-        return Ok();
+        return Ok(await mediator.Send(new GetInspectionObjectsListQuery(request.NamePart, EnumExtensions.ParseFromEnumMember<ProductType>(request.ProductType), EnumExtensions.ParseFromEnumMember<ProductResult>(request.ProductResult)), cancellationToken));
     }
 }

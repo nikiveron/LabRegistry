@@ -1,5 +1,7 @@
 <Solution>
   <Folder Name="/Элементы решения/">
+    <File Path=".env" />
+    <File Path="CheatSheet.md" />
     <File Path="docker-compose.yml" />
     <File Path="Тестовое.md" />
   </Folder>
@@ -8,4 +10,5 @@
   <Project Path="src/LabRegistry.Domain/LabRegistry.Domain.csproj" Id="a43032cc-0c2d-49cd-84ab-7c10fa2ac64c" />
   <Project Path="src/LabRegistry.Infrastructure/LabRegistry.Infrastructure.csproj" Id="04067341-adab-4231-be50-c7669298997b" />
   <Project Path="src/LabRegistry.Server/LabRegistry.Server.csproj" Id="c0729df8-ec1a-4730-92f4-d0202db26c73" />
+  <Project Path="src/LabRegistry.Tests/LabRegistry.Tests.csproj" Id="e7cc65cc-149f-4522-b10a-685c59f5c0f7" />
 </Solution>
