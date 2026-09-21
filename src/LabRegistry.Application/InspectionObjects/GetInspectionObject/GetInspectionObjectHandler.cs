@@ -14,6 +14,7 @@ public class GetInspectionObjectHandler(
     {
         var inspectionObjectResult = await inspectionObjectsRepository.Read(request.InspectionObjectId, cancellationToken)
             ?? throw new HttpErrorException(ExceptionMessagesConsts.InspectionObjectNotFound, System.Net.HttpStatusCode.NotFound);
+
         return new GetInspectionObjectModel(
             inspectionObjectResult.Id,
             inspectionObjectResult.Name,
