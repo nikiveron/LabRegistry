@@ -53,9 +53,16 @@ public class InspectionObjectsRepository(AppDbContext appDbContext) : IInspectio
         return await QueryFilterBuilder(query, namePart, productType, productResult).ToListAsync(ct);
     }
 
-    public async Task Update(InspectionObject inspectionObject, CancellationToken ct)
+    public async Task Update(Guid id, ProductResult? productResult, string? comment, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        var inspectionObject = await appDbContext.InspectionObjects.FirstOrDefaultAsync(io => io.Id == id, ct);
+
+        if (inspectionObject == null) return;
+
+        if (productResult != null) inspectionObject.ProductResult = EnumExtensions.GetEnumMemberValue(productResult.Value);
+        if (!string.IsNullOrEmpty(comment)) inspectionObject.Comment = comment;
+
+        await appDbContext.SaveChangesAsync(ct);
     }
 
     private static IQueryable<InspectionObject> QueryFilterBuilder(IQueryable<InspectionObject> query, string? namePart, ProductType? productType, ProductResult? productResult)

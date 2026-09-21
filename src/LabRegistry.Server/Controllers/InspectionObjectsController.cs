@@ -1,6 +1,7 @@
 ﻿using LabRegistry.Application.InspectionObjects.CreateInspectionObject;
 using LabRegistry.Application.InspectionObjects.GetInspectionObject;
 using LabRegistry.Application.InspectionObjects.GetInspectionObjectsList;
+using LabRegistry.Application.InspectionObjects.UpdateInspectionObject;
 using LabRegistry.Domain.Enums;
 using LabRegistry.Infrastructure.Tools;
 using MediatR;
@@ -30,5 +31,12 @@ public class InspectionObjectsController(IMediator mediator) : ControllerBase
     {
         var createdInspectionObject = await mediator.Send(new CreateInspectionObjectCommand(request.Name, request.Version, request.ProductType, request.RecieptDate, request.Comment), cancellationToken);
         return CreatedAtAction(nameof(GetInspectionObject), new { id = createdInspectionObject.Id }, createdInspectionObject);
+    }
+
+    [HttpPatch("{id:guid}")]
+    public async Task<IActionResult> UpdateInspectionObject([AutoValidateAlways] UpdateInspectionObjectRequest request, CancellationToken cancellationToken)
+    {
+        await mediator.Send(new UpdateInspectionObjectCommand(request.Id, EnumExtensions.ParseFromEnumMember<ProductResult>(request.Body.ProductResult), request.Body.Comment), cancellationToken);
+        return NoContent();
     }
 }
