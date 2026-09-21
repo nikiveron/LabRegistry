@@ -12,26 +12,18 @@ namespace LabRegistry.Application.InspectionObjects.GetInspectionObjectsList
         {
             RuleFor(x => x.NamePart)
                 .MaximumLength(AppConstants.InspectionObjectNameLength)
-                .WithMessage(ExceptionMessagesConsts.NameLengthUnder200)
+                .WithMessage(ExceptionMessagesConsts.NameLengthLimit)
                 .When(x => !string.IsNullOrEmpty(x.NamePart));
 
             RuleFor(x => x.ProductType)
-                .Must(IsValidEnumValue<ProductType>)
+                .Must(EnumExtensions.IsValidEnumValue<ProductType>)
                 .WithMessage(ExceptionMessagesConsts.ProductTypeMustBeValid)
                 .When(x => !string.IsNullOrEmpty(x.ProductType));
 
             RuleFor(x => x.ProductResult)
-                .Must(IsValidEnumValue<ProductResult>)
+                .Must(EnumExtensions.IsValidEnumValue<ProductResult>)
                 .WithMessage(ExceptionMessagesConsts.ProductResultMustBeValid)
                 .When(x => !string.IsNullOrEmpty(x.ProductResult));
-        }
-
-        private static bool IsValidEnumValue<T>(string? value) where T : struct, Enum
-        {
-            if (string.IsNullOrEmpty(value))
-                return true;
-
-            return EnumExtensions.ParseFromEnumMember<T>(value) != null;
         }
     }
 }

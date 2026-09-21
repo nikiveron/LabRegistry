@@ -5,7 +5,7 @@ namespace LabRegistry.Infrastructure.Database.Repositories;
 
 public interface IInspectionObjectsRepository
 {
-    public Task<Guid> Create(InspectionObject inspectionObject, CancellationToken ct);
+    public Task<InspectionObject> Create(string name, string version, ProductType productType, DateTimeOffset recieptDate, string? comment, CancellationToken ct);
     public Task<InspectionObject?> Read(Guid id, CancellationToken ct);
     public Task Update(InspectionObject inspectionObject, CancellationToken ct);
     public Task Delete(Guid id, CancellationToken ct);

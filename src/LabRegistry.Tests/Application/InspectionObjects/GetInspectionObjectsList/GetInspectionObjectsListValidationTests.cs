@@ -60,7 +60,7 @@ public class GetInspectionObjectsListValidationTests
         // Assert
         Assert.False(result.IsValid);
         Assert.Single(result.Errors);
-        Assert.Contains(result.Errors, e => e.ErrorMessage == ExceptionMessagesConsts.NameLengthUnder200);
+        Assert.Contains(result.Errors, e => e.ErrorMessage == ExceptionMessagesConsts.NameLengthLimit);
     }
 
     #endregion

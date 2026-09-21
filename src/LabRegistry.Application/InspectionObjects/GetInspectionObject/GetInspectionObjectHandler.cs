@@ -13,7 +13,7 @@ public class GetInspectionObjectHandler(
     public async Task<GetInspectionObjectModel> Handle(GetInspectionObjectQuery request, CancellationToken cancellationToken)
     {
         var inspectionObjectResult = await inspectionObjectsRepository.Read(request.InspectionObjectId, cancellationToken)
-            ?? throw new HttpErrorException("Ошибка! Объект проверки не найден", System.Net.HttpStatusCode.NotFound);
+            ?? throw new HttpErrorException(ExceptionMessagesConsts.InspectionObjectNotFound, System.Net.HttpStatusCode.NotFound);
         return new GetInspectionObjectModel(
             inspectionObjectResult.Id,
             inspectionObjectResult.Name,

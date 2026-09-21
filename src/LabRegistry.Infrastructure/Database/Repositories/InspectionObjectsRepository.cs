@@ -1,5 +1,6 @@
 ﻿using LabRegistry.Domain.Entities;
 using LabRegistry.Domain.Enums;
+using LabRegistry.Domain.Exceptions;
 using LabRegistry.Infrastructure.Database.Context;
 using LabRegistry.Infrastructure.Tools;
 using Microsoft.EntityFrameworkCore;
@@ -8,9 +9,32 @@ namespace LabRegistry.Infrastructure.Database.Repositories;
 
 public class InspectionObjectsRepository(AppDbContext appDbContext) : IInspectionObjectsRepository
 {
-    public async Task<Guid> Create(InspectionObject inspectionObject, CancellationToken ct)
+    public async Task<InspectionObject> Create(
+        string name,
+        string version,
+        ProductType productType,
+        DateTimeOffset recieptDate,
+        string? comment,
+        CancellationToken ct)
     {
-        throw new NotImplementedException();
+        if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(version))
+        {
+            throw new ArgumentNullException(ExceptionMessagesConsts.InspectionObjectMustHaveNameAndVersion);
+        }
+
+        var newInspectionObject = new InspectionObject
+        {
+            Name = name,
+            Version = version,
+            ProductType = EnumExtensions.GetEnumMemberValue(productType),
+            ReceiptDate = recieptDate,
+            ProductResult = EnumExtensions.GetEnumMemberValue(ProductResult.InProgress),
+            Comment = comment
+        };
+
+        appDbContext.InspectionObjects.Add(newInspectionObject);
+        await appDbContext.SaveChangesAsync(ct);
+        return newInspectionObject;
     }
 
     public async Task Delete(Guid id, CancellationToken ct)

@@ -35,4 +35,12 @@ public static class EnumExtensions
 
         return null;
     }
+
+    public static bool IsValidEnumValue<T>(string? value) where T : struct, Enum
+    {
+        if (string.IsNullOrEmpty(value))
+            return true;
+
+        return ParseFromEnumMember<T>(value) != null;
+    }
 }

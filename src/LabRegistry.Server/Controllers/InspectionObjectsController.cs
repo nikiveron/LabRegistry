@@ -1,5 +1,6 @@
-﻿using LabRegistry.Application.InspectionObjects.GetInspectionObjectsList;
+﻿using LabRegistry.Application.InspectionObjects.CreateInspectionObject;
 using LabRegistry.Application.InspectionObjects.GetInspectionObject;
+using LabRegistry.Application.InspectionObjects.GetInspectionObjectsList;
 using LabRegistry.Domain.Enums;
 using LabRegistry.Infrastructure.Tools;
 using MediatR;
@@ -22,5 +23,12 @@ public class InspectionObjectsController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> GetInspectionObject([AutoValidateAlways] GetInspectionObjectRequest request, CancellationToken cancellationToken)
     {
         return Ok(await mediator.Send(new GetInspectionObjectQuery(request.Id), cancellationToken));
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateInspectionObject([AutoValidateAlways] CreateInspectionObjectRequest request, CancellationToken cancellationToken)
+    {
+        var createdInspectionObject = await mediator.Send(new CreateInspectionObjectCommand(request.Name, request.Version, request.ProductType, request.RecieptDate, request.Comment), cancellationToken);
+        return CreatedAtAction(nameof(GetInspectionObject), new { id = createdInspectionObject.Id }, createdInspectionObject);
     }
 }

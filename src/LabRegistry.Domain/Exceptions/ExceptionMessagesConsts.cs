@@ -2,18 +2,45 @@
 
 public static class ExceptionMessagesConsts
 {
-    #region GetInspectionObjectsListRequestValidator
+    #region InspectionObjectsCommon
 
-    public const string NameLengthUnder200 = "Часть имени не должна превышать 200 символов";
-    public const string ProductTypeMustBeValid = "Тип продукта должен быть допустимым значением";
-    public const string ProductResultMustBeValid = "Результат продукта должен быть допустимым значением";
+    public const string NameIsRequired = "Наименование объекта обязательно";
+    public static readonly string NameLengthLimit = $"Имя не должно превышать {AppConstants.InspectionObjectNameLength} символов";
+    public const string VersionIsRequired = "Версия объекта обязательна";
+    public static readonly string VersionLengthLimit = $"Версия не должна превышать {AppConstants.InspectionObjectVersionLength} символов";
+    public const string ProductTypeIsRequired = "Тип объекта обязателен";
+    public const string ProductTypeMustBeValid = "Тип объекта должен быть допустимым значением";
+    public const string ReceiptDateIsRequired = "Дата поступления объекта обязательна";
+    public const string ReceiptDateMustBeValid = "Дата поступления объекта не может быть в будущем";
+    public const string ProductResultMustBeValid = "Результат объекта должен быть допустимым значением";
+    public static readonly string CommentLengthLimit = $"Примечание не должно превышать {AppConstants.InspectionObjectCommentLength} символов";
 
     #endregion
 
-    #region GetInspectionObjectRequestValidator
+    #region InspectionObjectsRepository
+
+    public const string InspectionObjectMustHaveNameAndVersion = "Объект проверки должен содержать поля \"Наименование\" и \"Версия\"";
+
+    #endregion
+
+    #region GetInspectionObject
 
     public const string ValidationObjectIdIsRequired = "Идентификатор объекта проверки обязателен";
     public const string ValidationObjectIdCannotBeEmpty = "Идентификатор объекта проверки не может быть пустым";
+
+    public const string InspectionObjectNotFound = "Объект проверки не найден";
+
+    #endregion
+
+    #region CreateInspectionObject
+
+    public const string ProductTypeIsInvalid = "Некорректный формат типа объекта";
+
+    #endregion
+
+    #region DB
+
+    public const string DbConnectionFailed = "Не удалось подключиться к базе данных. Попробуйте позже";
 
     #endregion
 }

@@ -3,11 +3,11 @@ using LabRegistry.Domain.Exceptions;
 
 namespace LabRegistry.Tests.Application.InspectionObjects.GetInspectionObject;
 
-public class GetInspectionObjectRequestValidatorTests
+public class GetInspectionObjectRequestValidationTests
 {
     private readonly GetInspectionObjectRequestValidator _validator;
 
-    public GetInspectionObjectRequestValidatorTests()
+    public GetInspectionObjectRequestValidationTests()
     {
         _validator = new GetInspectionObjectRequestValidator();
     }

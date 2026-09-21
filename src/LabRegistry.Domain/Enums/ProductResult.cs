@@ -6,7 +6,7 @@ public enum ProductResult
 {
     [EnumMember(Value = "В работе")]
     InProgress,
-    [EnumMember(Value = "Соответствует")]  
+    [EnumMember(Value = "Соответствует")]
     Passed,
     [EnumMember(Value = "Не соответствует")]
     Failed
