@@ -1,11 +1,12 @@
 ﻿using FluentValidation.TestHelper;
 using LabRegistry.Application.InspectionObjects.GetInspectionObjectsList;
+using LabRegistry.Domain.Exceptions;
 
-namespace LabRegistry.Tests.Application.InspectionObjects;
+namespace LabRegistry.Tests.Application.InspectionObjects.GetInspectionObjectsList;
 
 public class GetInspectionObjectsListValidationTests
 {
-    private readonly GetInspectionObjectsListBodyRequestValidator _validator;
+    private readonly GetInspectionObjectsListRequestValidator _validator;
     private const string _200LengthString = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. " +
                      "Aenean commodo ligula eget dolor. Aenean massa. Cum sociis " +
                      "natoque penatibus et magnis dis parturient montes, nascetur " +
@@ -14,7 +15,7 @@ public class GetInspectionObjectsListValidationTests
 
     public GetInspectionObjectsListValidationTests()
     {
-        _validator = new GetInspectionObjectsListBodyRequestValidator();
+        _validator = new GetInspectionObjectsListRequestValidator();
     }
 
     #region NamePart Tests
@@ -58,6 +59,8 @@ public class GetInspectionObjectsListValidationTests
 
         // Assert
         Assert.False(result.IsValid);
+        Assert.Single(result.Errors);
+        Assert.Contains(result.Errors, e => e.ErrorMessage == ExceptionMessagesConsts.NameLengthUnder200);
     }
 
     #endregion
@@ -104,6 +107,8 @@ public class GetInspectionObjectsListValidationTests
 
         // Assert
         Assert.False(result.IsValid);
+        Assert.Single(result.Errors);
+        Assert.Contains(result.Errors, e => e.ErrorMessage == ExceptionMessagesConsts.ProductTypeMustBeValid);
     }
 
     #endregion
@@ -153,6 +158,8 @@ public class GetInspectionObjectsListValidationTests
 
         // Assert
         Assert.False(result.IsValid);
+        Assert.Single(result.Errors);
+        Assert.Contains(result.Errors, e => e.ErrorMessage == ExceptionMessagesConsts.ProductResultMustBeValid);
     }
 
     #endregion

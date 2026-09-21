@@ -20,7 +20,7 @@ public class InspectionObjectsRepository(AppDbContext appDbContext) : IInspectio
 
     public async Task<InspectionObject?> Read(Guid id, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        return await appDbContext.InspectionObjects.FirstOrDefaultAsync(io => io.Id == id, ct);
     }
 
     public async Task<List<InspectionObject>> ReadList(string? namePart, ProductType? productType, ProductResult? productResult, CancellationToken ct)

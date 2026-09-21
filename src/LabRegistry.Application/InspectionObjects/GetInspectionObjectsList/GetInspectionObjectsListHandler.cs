@@ -12,7 +12,6 @@ public class GetInspectionObjectsListHandler(
 {
     public async Task<GetInspectionObjectsListModel> Handle(GetInspectionObjectsListQuery request, CancellationToken cancellationToken)
     {
-        var list = await inspectionObjectsRepository.ReadList(request.NamePart, request.ProductType, request.ProductResult, cancellationToken);
-        return new GetInspectionObjectsListModel(list);
+        return new GetInspectionObjectsListModel(await inspectionObjectsRepository.ReadList(request.NamePart, request.ProductType, request.ProductResult, cancellationToken));
     }
 }

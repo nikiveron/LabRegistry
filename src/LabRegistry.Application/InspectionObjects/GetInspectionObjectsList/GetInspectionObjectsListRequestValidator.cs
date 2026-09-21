@@ -1,27 +1,28 @@
 using FluentValidation;
 using LabRegistry.Domain;
 using LabRegistry.Domain.Enums;
+using LabRegistry.Domain.Exceptions;
 using LabRegistry.Infrastructure.Tools;
 
 namespace LabRegistry.Application.InspectionObjects.GetInspectionObjectsList
 {
-    public class GetInspectionObjectsListBodyRequestValidator : AbstractValidator<GetInspectionObjectsListRequest>
+    public class GetInspectionObjectsListRequestValidator : AbstractValidator<GetInspectionObjectsListRequest>
     {
-        public GetInspectionObjectsListBodyRequestValidator()
+        public GetInspectionObjectsListRequestValidator()
         {
             RuleFor(x => x.NamePart)
                 .MaximumLength(AppConstants.InspectionObjectNameLength)
-                .WithMessage("Часть имени не должна превышать 200 символов")
+                .WithMessage(ExceptionMessagesConsts.NameLengthUnder200)
                 .When(x => !string.IsNullOrEmpty(x.NamePart));
 
             RuleFor(x => x.ProductType)
                 .Must(IsValidEnumValue<ProductType>)
-                .WithMessage("Тип продукта должен быть допустимым значением")
+                .WithMessage(ExceptionMessagesConsts.ProductTypeMustBeValid)
                 .When(x => !string.IsNullOrEmpty(x.ProductType));
 
             RuleFor(x => x.ProductResult)
                 .Must(IsValidEnumValue<ProductResult>)
-                .WithMessage("Результат продукта должен быть допустимым значением")
+                .WithMessage(ExceptionMessagesConsts.ProductResultMustBeValid)
                 .When(x => !string.IsNullOrEmpty(x.ProductResult));
         }
 
