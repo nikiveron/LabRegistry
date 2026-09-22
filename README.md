@@ -74,7 +74,19 @@ git clone https://github.com/nikiveron/LabRegistry
 cd LabRegistry
 ```
 
-### 2. Собрать и запустить серверную часть и PostgreSQL
+### 2. Настроить переменные окружения
+
+В корне проекта создать файл `.env` с содержимым:
+```dotenv
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=labregistry_db
+
+PGADMIN_DEFAULT_EMAIL=postgres@localhost.com
+PGADMIN_DEFAULT_PASSWORD=postgres
+```
+
+### 3. Собрать и запустить серверную часть и PostgreSQL
 
 В корне проекта выполнить:
 
@@ -83,7 +95,7 @@ docker compose build
 docker compose up -d
 ```
 
-### 3. Запустить WPF-клиент
+### 4. Запустить WPF-клиент
 
 Через Visual Studio или в отдельном терминале:
 
