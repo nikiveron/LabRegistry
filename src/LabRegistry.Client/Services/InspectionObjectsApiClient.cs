@@ -46,7 +46,7 @@ public class InspectionObjectsApiClient(HttpClient httpClient)
 
         var url = "api/inspection-objects";
         url += "?" + string.Join("&", parameters);
-        
+
         using var response = await _httpClient.GetAsync(
             url,
             cancellationToken);

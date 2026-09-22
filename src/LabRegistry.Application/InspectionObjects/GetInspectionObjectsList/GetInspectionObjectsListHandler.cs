@@ -5,8 +5,8 @@ using MediatR;
 namespace LabRegistry.Application.InspectionObjects.GetInspectionObjectsList;
 
 public record GetInspectionObjectsListQuery(
-    string? NamePart, 
-    ProductType? ProductType, 
+    string? NamePart,
+    ProductType? ProductType,
     ProductResult? ProductResult,
     int Page,
     int PageSize

@@ -48,8 +48,8 @@ public class InspectionObjectsRepository(AppDbContext appDbContext) : IInspectio
     }
 
     public async Task<(List<InspectionObject> Items, int TotalCount)> ReadList(
-        string? namePart, 
-        ProductType? productType, 
+        string? namePart,
+        ProductType? productType,
         ProductResult? productResult,
         int page,
         int pageSize,

@@ -164,4 +164,115 @@ public class GetInspectionObjectsListValidationTests
 
     #endregion
 
+    #region Page Number Tests
+
+    [Theory]
+    [InlineData(1)]
+    [InlineData(2)]
+    [InlineData(10)]
+    [InlineData(100)]
+    public void GetInspectionObjectsListValidation_Page_Success(int page)
+    {
+        // Arrange
+        var request = new GetInspectionObjectsListRequest
+        {
+            NamePart = null,
+            ProductType = null,
+            ProductResult = null,
+            Page = page,
+            PageSize = 10
+        };
+
+        // Act
+        var result = _validator.TestValidate(request);
+
+        // Assert
+        Assert.True(result.IsValid);
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-1)]
+    [InlineData(-100)]
+    public void GetInspectionObjectsListValidation_Page_Failure(int page)
+    {
+        // Arrange
+        var request = new GetInspectionObjectsListRequest
+        {
+            NamePart = null,
+            ProductType = null,
+            ProductResult = null,
+            Page = page,
+            PageSize = 10
+        };
+
+        // Act
+        var result = _validator.TestValidate(request);
+
+        // Assert
+        Assert.False(result.IsValid);
+        Assert.Single(result.Errors);
+        Assert.Contains(
+            result.Errors,
+            e => e.ErrorMessage == ExceptionMessagesConsts.PageMustBePositive);
+    }
+
+    #endregion
+
+    #region PageSize Tests
+
+    [Theory]
+    [InlineData(1)]
+    [InlineData(2)]
+    [InlineData(10)]
+    [InlineData(50)]
+    [InlineData(100)]
+    public void GetInspectionObjectsListValidation_PageSize_Success(int pageSize)
+    {
+        // Arrange
+        var request = new GetInspectionObjectsListRequest
+        {
+            NamePart = null,
+            ProductType = null,
+            ProductResult = null,
+            Page = 1,
+            PageSize = pageSize
+        };
+
+        // Act
+        var result = _validator.TestValidate(request);
+
+        // Assert
+        Assert.True(result.IsValid);
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-1)]
+    [InlineData(101)]
+    [InlineData(200)]
+    public void GetInspectionObjectsListValidation_PageSize_Failure(int pageSize)
+    {
+        // Arrange
+        var request = new GetInspectionObjectsListRequest
+        {
+            NamePart = null,
+            ProductType = null,
+            ProductResult = null,
+            Page = 1,
+            PageSize = pageSize
+        };
+
+        // Act
+        var result = _validator.TestValidate(request);
+
+        // Assert
+        Assert.False(result.IsValid);
+        Assert.Single(result.Errors);
+        Assert.Contains(
+            result.Errors,
+            e => e.ErrorMessage == ExceptionMessagesConsts.PageSizeMustBeBetween1And100);
+    }
+
+    #endregion
 }

@@ -24,11 +24,11 @@ public class InspectionObjectsController(IMediator mediator) : ControllerBase
     {
         return Ok(await mediator.Send(
             new GetInspectionObjectsListQuery(
-                request.NamePart, 
-                EnumExtensions.ParseFromEnumMember<ProductType>(request.ProductType), 
+                request.NamePart,
+                EnumExtensions.ParseFromEnumMember<ProductType>(request.ProductType),
                 EnumExtensions.ParseFromEnumMember<ProductResult>(request.ProductResult),
                 request.Page,
-                request.PageSize), 
+                request.PageSize),
             cancellationToken));
     }
 
@@ -53,11 +53,11 @@ public class InspectionObjectsController(IMediator mediator) : ControllerBase
     {
         var createdInspectionObject = await mediator.Send(
             new CreateInspectionObjectCommand(
-                request.Name, 
-                request.Version, 
-                request.ProductType, 
-                request.RecieptDate, 
-                request.Comment), 
+                request.Name,
+                request.Version,
+                request.ProductType,
+                request.RecieptDate,
+                request.Comment),
             cancellationToken);
         return CreatedAtAction(nameof(GetInspectionObject), new { id = createdInspectionObject.Id }, createdInspectionObject);
     }
@@ -73,9 +73,9 @@ public class InspectionObjectsController(IMediator mediator) : ControllerBase
     {
         await mediator.Send(
             new UpdateInspectionObjectCommand(
-                request.Id, 
-                EnumExtensions.ParseFromEnumMember<ProductResult>(request.Body.ProductResult), 
-                request.Body.Comment), 
+                request.Id,
+                EnumExtensions.ParseFromEnumMember<ProductResult>(request.Body.ProductResult),
+                request.Body.Comment),
             cancellationToken);
         return NoContent();
     }
