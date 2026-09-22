@@ -9,5 +9,5 @@ public interface IInspectionObjectsRepository
     public Task<InspectionObject?> Read(Guid id, CancellationToken ct);
     public Task Update(Guid id, ProductResult? productResult, string? comment, CancellationToken ct);
     public Task Delete(Guid id, CancellationToken ct);
-    public Task<List<InspectionObject>> ReadList(string? namePart, ProductType? productType, ProductResult? productResult, CancellationToken ct);
+    public Task<(List<InspectionObject> Items, int TotalCount)> ReadList(string? namePart, ProductType? productType, ProductResult? productResult, int page, int pageSize, CancellationToken ct);
 }

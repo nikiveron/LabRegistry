@@ -24,5 +24,13 @@ public class GetInspectionObjectsListRequestValidator : AbstractValidator<GetIns
             .Must(EnumExtensions.IsValidEnumValue<ProductResult>)
             .WithMessage(ExceptionMessagesConsts.ProductResultMustBeValid)
             .When(x => !string.IsNullOrEmpty(x.ProductResult));
+
+        RuleFor(x => x.Page)
+            .GreaterThanOrEqualTo(1)
+            .WithMessage(ExceptionMessagesConsts.PageMustBePositive);
+
+        RuleFor(x => x.PageSize)
+            .InclusiveBetween(1, 100)
+            .WithMessage(ExceptionMessagesConsts.PageSizeMustBeBetween1And100);
     }
 }

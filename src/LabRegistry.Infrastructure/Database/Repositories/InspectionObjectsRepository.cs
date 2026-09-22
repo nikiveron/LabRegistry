@@ -47,10 +47,25 @@ public class InspectionObjectsRepository(AppDbContext appDbContext) : IInspectio
         return await appDbContext.InspectionObjects.FirstOrDefaultAsync(io => io.Id == id, ct);
     }
 
-    public async Task<List<InspectionObject>> ReadList(string? namePart, ProductType? productType, ProductResult? productResult, CancellationToken ct)
+    public async Task<(List<InspectionObject> Items, int TotalCount)> ReadList(
+        string? namePart, 
+        ProductType? productType, 
+        ProductResult? productResult,
+        int page,
+        int pageSize,
+        CancellationToken ct)
     {
         var query = appDbContext.InspectionObjects.AsQueryable();
-        return await QueryFilterBuilder(query, namePart, productType, productResult).ToListAsync(ct);
+        query = QueryFilterBuilder(query, namePart, productType, productResult);
+
+        var totalCount = await query.CountAsync(ct);
+        var items = await query
+            .OrderBy(io => io.Id)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync(ct);
+
+        return (items, totalCount);
     }
 
     public async Task Update(Guid id, ProductResult? productResult, string? comment, CancellationToken ct)

@@ -23,6 +23,13 @@ public static class ExceptionMessagesConsts
 
     #endregion
 
+    #region GetInspectionObjectsList
+
+    public const string PageMustBePositive = "Номер страницы должен быть положительным";
+    public const string PageSizeMustBeBetween1And100 = "Размер страницы должен быть между 1 и 100";
+
+    #endregion
+
     #region GetInspectionObject
 
     public const string ValidationObjectIdIsRequired = "Идентификатор объекта проверки обязателен";
