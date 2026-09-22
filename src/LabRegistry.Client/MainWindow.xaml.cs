@@ -15,14 +15,12 @@ public partial class MainWindow : Window
 
         var httpClient = new HttpClient
         {
-            BaseAddress = new Uri("http://localhost:8080/")
+            BaseAddress = new Uri(AppConfiguration.ApiBaseUrl)
         };
 
-        var apiClient =
-            new InspectionObjectsApiClient(httpClient);
+        var apiClient = new InspectionObjectsApiClient(httpClient);
 
-        _viewModel =
-            new MainViewModel(apiClient);
+        _viewModel = new MainViewModel(apiClient);
 
         DataContext = _viewModel;
 
