@@ -3,6 +3,7 @@
     <File Path=".env" />
     <File Path="CheatSheet.md" />
     <File Path="docker-compose.yml" />
+    <File Path="README.md" />
     <File Path="Тестовое.md" />
   </Folder>
   <Project Path="src/LabRegistry.Application/LabRegistry.Application.csproj" Id="360de723-ddbd-49d1-948a-e2666ff28c6c" />
