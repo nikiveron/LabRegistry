@@ -75,7 +75,7 @@ public class InspectionObjectsRepository(AppDbContext appDbContext) : IInspectio
         if (inspectionObject == null) return;
 
         if (productResult != null) inspectionObject.ProductResult = EnumExtensions.GetEnumMemberValue(productResult.Value);
-        if (!string.IsNullOrEmpty(comment)) inspectionObject.Comment = comment;
+        inspectionObject.Comment = comment;
 
         await appDbContext.SaveChangesAsync(ct);
     }
